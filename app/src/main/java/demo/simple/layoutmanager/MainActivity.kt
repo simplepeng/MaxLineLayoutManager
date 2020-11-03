@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import me.simple.layoutmanager.MaxCountLinearLayoutManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,15 +22,35 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mItems.add(1)
-        mItems.add(1)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+//        recyclerView.layoutManager = MaxCountLinearLayoutManager(
+//            this,
+//            LinearLayoutManager.VERTICAL,
+//            false,
+//            3
+//        )
+
+        recyclerView.layoutManager = MaxCountLinearLayoutManager(this,3)
+
         recyclerView.adapter = mAdapter
     }
 
     fun addItem(view: View) {
         mItems.add(1)
-        mAdapter.notifyDataSetChanged()
+//        mAdapter.notifyDataSetChanged()
+        mAdapter.notifyItemInserted(mItems.lastIndex)
+
+        recyclerView.postDelayed({
+            recyclerView.smoothScrollToPosition(mItems.lastIndex)
+        }, 300)
+    }
+
+    fun delItem(view: View) {
+        if (mItems.isEmpty()) return
+        val index = mItems.lastIndex
+        mItems.removeAt(index)
+        mAdapter.notifyItemRemoved(index)
     }
 
     inner class Adapter : RecyclerView.Adapter<Holder>() {
