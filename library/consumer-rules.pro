@@ -1,0 +1,1 @@
+-keep class me.simple.layoutmanager*

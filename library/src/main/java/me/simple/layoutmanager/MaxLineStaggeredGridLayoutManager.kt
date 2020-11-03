@@ -2,18 +2,19 @@ package me.simple.layoutmanager
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
-class MaxCountGridLayoutManager : GridLayoutManager {
+class MaxLineStaggeredGridLayoutManager : StaggeredGridLayoutManager {
 
-    constructor(context: Context?, spanCount: Int) : super(context, spanCount)
     constructor(
         context: Context?,
-        spanCount: Int,
-        orientation: Int,
-        reverseLayout: Boolean
-    ) : super(context, spanCount, orientation, reverseLayout)
+        attrs: AttributeSet?,
+        defStyleAttr: Int,
+        defStyleRes: Int
+    ) : super(context, attrs, defStyleAttr, defStyleRes)
+
+    constructor(spanCount: Int, orientation: Int) : super(spanCount, orientation)
 
     override fun onMeasure(
         recycler: RecyclerView.Recycler,
@@ -22,6 +23,7 @@ class MaxCountGridLayoutManager : GridLayoutManager {
         heightSpec: Int
     ) {
         super.onMeasure(recycler, state, widthSpec, heightSpec)
+        
     }
 
     override fun isAutoMeasureEnabled(): Boolean {
