@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 //        recyclerView.layoutManager = MaxCountLinearLayoutManager(this,3)
 
 //        recyclerView.layoutManager = GridLayoutManager(this,2)
-        recyclerView.layoutManager = MaxLineGridLayoutManager(this, 2, 3)
+        recyclerView.layoutManager = MaxLineGridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL,false,3)
 
         recyclerView.adapter = mAdapter
     }

@@ -49,7 +49,7 @@ class MaxLineGridLayoutManager : GridLayoutManager {
         val height = getDecoratedMeasuredHeight(child)
 
         if (orientation == HORIZONTAL) {
-
+            setMeasuredDimension(width * mMaxLine, height * spanCount)
         } else {
             setMeasuredDimension(width * spanCount, height * mMaxLine)
         }
