@@ -55,7 +55,7 @@ class MaxLineStaggeredGridLayoutManager(
         }
 
         val widthMode = View.MeasureSpec.getMode(widthSpec)
-        val heightMode = View.MeasureSpec.getMode(widthSpec)
+        val heightMode = View.MeasureSpec.getMode(heightSpec)
         var width = 0
         var height = 0
 

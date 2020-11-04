@@ -1,6 +1,7 @@
 package me.simple.layoutmanager
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -32,7 +33,7 @@ class MaxLineLinearLayoutManager : LinearLayoutManager {
         widthSpec: Int,
         heightSpec: Int
     ) {
-        if (itemCount < mMaxLine || itemCount == 0) {
+        if (itemCount <= mMaxLine || itemCount == 0) {
             super.onMeasure(recycler, state, widthSpec, heightSpec)
             return
         }
@@ -45,17 +46,32 @@ class MaxLineLinearLayoutManager : LinearLayoutManager {
         val itemHeight = getDecoratedMeasuredHeight(child)
         removeAndRecycleView(child, recycler)
 
+        val widthMode = View.MeasureSpec.getMode(widthSpec)
+        val heightMode = View.MeasureSpec.getMode(heightSpec)
+        var width = 0
+        var height = 0
+
         if (orientation == HORIZONTAL) {
-            setMeasuredDimension(itemWidth * mMaxLine, itemHeight)
+            height = if (heightMode == View.MeasureSpec.EXACTLY) {
+                View.MeasureSpec.getSize(heightSpec)
+            } else {
+                itemHeight
+            }
+            width = itemWidth * mMaxLine
         } else {
-            setMeasuredDimension(itemWidth, itemHeight * mMaxLine)
+            width = if (widthMode == View.MeasureSpec.EXACTLY) {
+                View.MeasureSpec.getSize(widthSpec)
+            } else {
+                itemWidth
+            }
+            height = itemHeight * mMaxLine
         }
 
-
+        setMeasuredDimension(width, height)
     }
 
     override fun isAutoMeasureEnabled(): Boolean {
-        if (itemCount < mMaxLine) {
+        if (itemCount <= mMaxLine) {
             return super.isAutoMeasureEnabled()
         }
         return false
