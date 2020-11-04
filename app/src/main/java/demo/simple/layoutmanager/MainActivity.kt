@@ -27,10 +27,12 @@ class MainActivity : AppCompatActivity() {
         mItems.add(1)
 
 //        recyclerView.layoutManager = LinearLayoutManager(this)
-//        recyclerView.layoutManager = MaxLineLinearLayoutManager(this, LinearLayoutManager.VERTICAL,false,3)
+        recyclerView.layoutManager =
+            MaxLineLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false, 3)
 
 //        recyclerView.layoutManager = GridLayoutManager(this,2)
-        recyclerView.layoutManager = MaxLineGridLayoutManager(this, 2, 3)
+//        recyclerView.layoutManager =
+//            MaxLineGridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false, 3)
 
 //        recyclerView.layoutManager =
 //            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
