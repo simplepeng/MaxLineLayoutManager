@@ -7,7 +7,18 @@
 ## 导入依赖
 
 ```groovy
+allprojects {
+		repositories {
+			...
+			maven { url 'https://www.jitpack.io' }
+		}
+	}
+```
 
+```groovy
+dependencies {
+	        implementation 'com.github.simplepeng:MaxLineLayoutManager:v1.0.0'
+	}
 ```
 
 ## 使用
