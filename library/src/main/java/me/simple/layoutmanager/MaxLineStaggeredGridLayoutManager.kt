@@ -1,5 +1,7 @@
 package me.simple.layoutmanager
 
+import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
@@ -52,11 +54,28 @@ class MaxLineStaggeredGridLayoutManager(
             }
         }
 
-        if (orientation == HORIZONTAL) {
-            setMeasuredDimension(maxItemWidth * mMaxLine, maxItemHeight * spanCount)
+        val widthMode = View.MeasureSpec.getMode(widthSpec)
+        val heightMode = View.MeasureSpec.getMode(widthSpec)
+        var width = 0
+        var height = 0
+
+        if (orientation == GridLayoutManager.HORIZONTAL) {
+            width = maxItemWidth * mMaxLine
+            height = if (heightMode == View.MeasureSpec.EXACTLY) {
+                View.MeasureSpec.getSize(heightSpec)
+            } else {
+                maxItemHeight * spanCount
+            }
         } else {
-            setMeasuredDimension(maxItemWidth * spanCount, maxItemHeight * mMaxLine)
+            width = if (widthMode == View.MeasureSpec.EXACTLY) {
+                View.MeasureSpec.getSize(widthSpec)
+            } else {
+                maxItemWidth * spanCount
+            }
+            height = maxItemHeight * mMaxLine
         }
+
+        setMeasuredDimension(width, height)
     }
 
     override fun isAutoMeasureEnabled(): Boolean {

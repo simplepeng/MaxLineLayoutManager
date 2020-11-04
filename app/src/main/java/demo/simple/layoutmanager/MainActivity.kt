@@ -29,12 +29,12 @@ class MainActivity : AppCompatActivity() {
 //        recyclerView.layoutManager = MaxLineLinearLayoutManager(this, 3)
 
 //        recyclerView.layoutManager = GridLayoutManager(this,2)
-        recyclerView.layoutManager = MaxLineGridLayoutManager(this, 2, 3)
+//        recyclerView.layoutManager = MaxLineGridLayoutManager(this, 2, 3)
 
 //        recyclerView.layoutManager =
 //            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
-//        recyclerView.layoutManager =
-//            MaxLineStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL, 3)
+        recyclerView.layoutManager =
+            MaxLineStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL, 3)
 
         recyclerView.adapter = mAdapter
     }
