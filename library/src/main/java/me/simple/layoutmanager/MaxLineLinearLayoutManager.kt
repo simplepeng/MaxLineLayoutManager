@@ -32,7 +32,7 @@ class MaxLineLinearLayoutManager : LinearLayoutManager {
         widthSpec: Int,
         heightSpec: Int
     ) {
-        if (mMaxLine <= itemCount || itemCount == 0) {
+        if (itemCount < mMaxLine || itemCount == 0) {
             super.onMeasure(recycler, state, widthSpec, heightSpec)
             return
         }
@@ -41,21 +41,21 @@ class MaxLineLinearLayoutManager : LinearLayoutManager {
 
         addView(child)
         measureChildWithMargins(child, 0, 0)
-
-        val width = getDecoratedMeasuredWidth(child)
-        val height = getDecoratedMeasuredHeight(child)
+        val itemWidth = getDecoratedMeasuredWidth(child)
+        val itemHeight = getDecoratedMeasuredHeight(child)
+        removeAndRecycleView(child, recycler)
 
         if (orientation == HORIZONTAL) {
-            setMeasuredDimension(width * mMaxLine, height)
+            setMeasuredDimension(itemWidth * mMaxLine, itemHeight)
         } else {
-            setMeasuredDimension(width, height * mMaxLine)
+            setMeasuredDimension(itemWidth, itemHeight * mMaxLine)
         }
 
-        removeAndRecycleView(child, recycler)
+
     }
 
     override fun isAutoMeasureEnabled(): Boolean {
-        if (mMaxLine <= itemCount) {
+        if (itemCount < mMaxLine) {
             return super.isAutoMeasureEnabled()
         }
         return false

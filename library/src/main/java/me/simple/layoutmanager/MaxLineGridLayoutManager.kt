@@ -1,7 +1,7 @@
 package me.simple.layoutmanager
 
 import android.content.Context
-import android.util.AttributeSet
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +36,7 @@ class MaxLineGridLayoutManager : GridLayoutManager {
         widthSpec: Int,
         heightSpec: Int
     ) {
-        if (calculateItemLine() < mMaxLine || itemCount == 0) {
+        if (itemCount <= mMaxLine * spanCount || itemCount == 0) {
             super.onMeasure(recycler, state, widthSpec, heightSpec)
             return
         }
@@ -44,29 +44,39 @@ class MaxLineGridLayoutManager : GridLayoutManager {
         val child = recycler.getViewForPosition(0)
         addView(child)
         measureChildWithMargins(child, 0, 0)
+        val itemWidth = getDecoratedMeasuredWidth(child)
+        val itemHeight = getDecoratedMeasuredHeight(child)
+        removeAndRecycleView(child, recycler)
 
-        val width = getDecoratedMeasuredWidth(child)
-        val height = getDecoratedMeasuredHeight(child)
+        val widthMode = View.MeasureSpec.getMode(widthSpec)
+        val heightMode = View.MeasureSpec.getMode(widthSpec)
+        var width = 0
+        var height = 0
 
         if (orientation == HORIZONTAL) {
-            setMeasuredDimension(width * mMaxLine, height * spanCount)
+            width = itemWidth * mMaxLine
+            height = if (heightMode == View.MeasureSpec.EXACTLY) {
+                View.MeasureSpec.getSize(heightSpec)
+            } else {
+                itemHeight * spanCount
+            }
         } else {
-            setMeasuredDimension(width * spanCount, height * mMaxLine)
+            width = if (widthMode == View.MeasureSpec.EXACTLY) {
+                View.MeasureSpec.getSize(widthSpec)
+            } else {
+                itemWidth * spanCount
+            }
+            height = itemHeight * mMaxLine
         }
 
-        removeAndRecycleView(child, recycler)
+        setMeasuredDimension(width, height)
     }
 
     override fun isAutoMeasureEnabled(): Boolean {
-        if (calculateItemLine() < mMaxLine) {
+        if (itemCount <= mMaxLine * spanCount) {
             return super.isAutoMeasureEnabled()
         }
 
         return false
     }
-
-    /**
-     *
-     */
-    private fun calculateItemLine() = itemCount / spanCount
 }
