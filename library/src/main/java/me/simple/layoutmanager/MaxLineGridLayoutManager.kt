@@ -53,6 +53,8 @@ class MaxLineGridLayoutManager : GridLayoutManager {
         } else {
             setMeasuredDimension(width * spanCount, height * mMaxLine)
         }
+
+        removeAndRecycleView(child, recycler)
     }
 
     override fun isAutoMeasureEnabled(): Boolean {

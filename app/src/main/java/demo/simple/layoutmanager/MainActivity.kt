@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import me.simple.layoutmanager.MaxLineGridLayoutManager
+import me.simple.layoutmanager.MaxLineStaggeredGridLayoutManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +28,15 @@ class MainActivity : AppCompatActivity() {
 //        recyclerView.layoutManager = MaxCountLinearLayoutManager(this,3)
 
 //        recyclerView.layoutManager = GridLayoutManager(this,2)
-        recyclerView.layoutManager = MaxLineGridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL,false,3)
+//        recyclerView.layoutManager = MaxLineGridLayoutManager(
+//            this, 2,
+//            GridLayoutManager.HORIZONTAL, false, 3
+//        )
+
+//        recyclerView.layoutManager =
+//            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
+        recyclerView.layoutManager =
+            MaxLineStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL, 3)
 
         recyclerView.adapter = mAdapter
     }
