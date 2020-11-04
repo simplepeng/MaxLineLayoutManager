@@ -27,8 +27,9 @@ class MainActivity : AppCompatActivity() {
         mItems.add(1)
 
 //        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager =
-            MaxLineLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false, 3)
+        recyclerView.layoutManager = MaxLineLinearLayoutManager(this, maxLine = 3)
+//        recyclerView.layoutManager =
+//            MaxLineLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false, 3)
 
 //        recyclerView.layoutManager = GridLayoutManager(this,2)
 //        recyclerView.layoutManager =
