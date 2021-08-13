@@ -7,18 +7,11 @@
 ## 导入依赖
 
 ```groovy
-allprojects {
-		repositories {
-			...
-			maven { url 'https://www.jitpack.io' }
-		}
-	}
+maven { url 'https://www.jitpack.io' }
 ```
 
 ```groovy
-dependencies {
-	        implementation 'com.github.simplepeng:MaxLineLayoutManager:v1.0.0'
-	}
+implementation 'com.github.simplepeng:MaxLineLayoutManager:v1.0.0'
 ```
 
 ## 使用
@@ -34,3 +27,6 @@ recyclerView.adapter = ....
 * MaxLineGridLayoutManager
 * MaxLineStaggeredGridLayoutManager
 
+## 版本迭代
+
+* v1.0.0：首次上传
